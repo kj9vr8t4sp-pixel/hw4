@@ -46,6 +46,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +68,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun TipTimeLayout() {
     var amountInput by remember { mutableStateOf("") }
+
     val amount = amountInput.toDoubleOrNull() ?: 0.0
     val tip = calculateTip(amount)
 
@@ -73,6 +76,7 @@ fun TipTimeLayout() {
         modifier = Modifier
             .statusBarsPadding()
             .padding(horizontal = 40.dp)
+            .verticalScroll(rememberScrollState())
             .safeDrawingPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -83,6 +87,7 @@ fun TipTimeLayout() {
                 .padding(bottom = 16.dp, top = 40.dp)
                 .align(alignment = Alignment.Start)
         )
+
         EditNumberField(
             value = amountInput,
             onValueChange = { amountInput = it },
@@ -90,10 +95,12 @@ fun TipTimeLayout() {
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
         )
+
         Text(
             text = stringResource(R.string.tip_amount, tip),
             style = MaterialTheme.typography.displaySmall
         )
+
         Spacer(modifier = Modifier.height(150.dp))
     }
 }
@@ -107,9 +114,11 @@ fun EditNumberField(
     TextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(stringResource(R.string.bill_amount)) },
         singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        label = { Text(stringResource(R.string.bill_amount)) },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number
+        ),
         modifier = modifier
     )
 }
