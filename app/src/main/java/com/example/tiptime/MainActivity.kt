@@ -55,6 +55,9 @@ import java.text.NumberFormat
 import java.util.Locale
 import androidx.compose.material3.Switch
 import androidx.compose.foundation.layout.Row
+import androidx.annotation.DrawableRes
+import androidx.compose.material3.Icon
+import androidx.compose.ui.res.painterResource
 
 
 
@@ -103,6 +106,7 @@ fun TipTimeLayout() {
 
         EditNumberField(
             label = R.string.bill_amount,
+            leadingIcon = R.drawable.money,
             value = amountInput,
             onValueChange = { amountInput = it },
             modifier = Modifier
@@ -116,6 +120,7 @@ fun TipTimeLayout() {
 
         EditNumberField(
             label = R.string.how_was_the_service,
+            leadingIcon = R.drawable.percent,
             value = tipInput,
             onValueChange = { tipInput = it },
             modifier = Modifier
@@ -144,6 +149,7 @@ fun TipTimeLayout() {
 @Composable
 fun EditNumberField(
     @StringRes label: Int,
+    @DrawableRes leadingIcon: Int,
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -154,6 +160,12 @@ fun EditNumberField(
         onValueChange = onValueChange,
         singleLine = true,
         label = { Text(stringResource(label)) },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(id = leadingIcon),
+                contentDescription = null
+            )
+        },
         keyboardOptions = keyboardOptions,
         modifier = modifier
     )
