@@ -58,7 +58,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.annotation.DrawableRes
 import androidx.compose.material3.Icon
 import androidx.compose.ui.res.painterResource
-
+import androidx.annotation.VisibleForTesting
 
 
 class MainActivity : ComponentActivity() {
@@ -194,7 +194,8 @@ fun RoundTheTipRow(
 }
 
 
-private fun calculateTip(
+@VisibleForTesting
+internal fun calculateTip(
     amount: Double,
     tipPercent: Double = 15.0,
     roundUp: Boolean
